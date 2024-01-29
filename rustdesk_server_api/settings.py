@@ -23,9 +23,9 @@ else:
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", 'j%7yjvygpih=6b%qf!q%&ixpn+27dngzdu-i3xh-^3xgy3^nnc')
+SECRET_KEY = os.environ.get("SECRET_KEY", 'FnyMBzGKNrypJwH1YYHmLlJ+8G3bH59RZ9XuZleG95s=')
 # ID服务器IP或域名，一般与中继服务器，用于web client
-ID_SERVER = os.environ.get("ID_SERVER", '')
+ID_SERVER = os.environ.get("ID_SERVER", '92.246.151.100')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
