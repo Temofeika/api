@@ -16,7 +16,7 @@ from .views_front import *
 def login(request):
     result = {}
     if request.method == 'GET':
-        result['error'] = '请求方式错误！请使用POST方式。'
+        result['error'] = 'Неправильный метод запроса! Пожалуйста, используйте метод POST.'
         return JsonResponse(result)
 
     data = json.loads(request.body.decode())
@@ -30,7 +30,7 @@ def login(request):
     deviceInfo = data.get('deviceInfo', '')
     user = auth.authenticate(username=username,password=password)
     if not user:
-        result['error'] = '帐号或密码错误！请重试，多次重试后将被锁定IP！'
+        result['error'] = 'Учетная запись или пароль неверны! Пожалуйста, попробуйте еще раз, IP-адрес будет заблокирован после нескольких попыток!'
         return JsonResponse(result)
     user.rid = rid
     user.uuid = uuid
@@ -68,7 +68,7 @@ def login(request):
 
 def logout(request):
     if request.method == 'GET':
-        result = {'error':'请求方式错误！'}
+        result = {'error':'Неправильный метод запроса!'}
         return JsonResponse(result)
     
     data = json.loads(request.body.decode())
@@ -76,7 +76,7 @@ def logout(request):
     uuid = data.get('uuid', '')
     user = UserProfile.objects.filter(Q(rid=rid) & Q(uuid=uuid)).first()
     if not user:
-        result = {'error':'异常请求！'}
+        result = {'error':'Необычная просьба!'}
         return JsonResponse(result)
     token = RustDeskToken.objects.filter(Q(uid=user.id) & Q(rid=user.rid)).first()
     if token:
@@ -89,7 +89,7 @@ def logout(request):
 def currentUser(request):
     result = {}
     if request.method == 'GET':
-        result['error'] = '错误的提交方式！'
+        result['error'] = 'Неправильный способ отправки!'
         return JsonResponse(result)
     postdata = json.loads(request.body)
     rid = postdata.get('id', '')
@@ -117,7 +117,7 @@ def ab(request):
     access_token = access_token.split('Bearer ')[-1]
     token = RustDeskToken.objects.filter(Q(access_token=access_token) ).first()
     if not token:
-        result = {'error':'拉取列表错误！'}
+        result = {'error':'Ошибка извлечения списка!'}
         return JsonResponse(result)
     
     if request.method == 'GET':
@@ -196,7 +196,7 @@ def ab(request):
 
     result = {
     'code':102,
-    'data':'更新地址簿有误'
+    'data':'Ошибка обновления адресной книги'
     }
     return JsonResponse(result)
 
@@ -204,7 +204,7 @@ def sysinfo(request):
     # 客户端注册服务后，才会发送设备信息
     result = {}
     if request.method == 'GET':
-        result['error'] = '错误的提交方式！'
+        result['error'] = 'Неправильный способ отправки!'
         return JsonResponse(result)
     
     postdata = json.loads(request.body)
