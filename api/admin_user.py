@@ -11,8 +11,8 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='密码', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='再次输入密码', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Введите пароль еще раз', widget=forms.PasswordInput)
 
     class Meta:
         model = models.UserProfile
@@ -23,7 +23,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("密码校验失败，两次密码不一致。")
+            raise forms.ValidationError("Проверка пароля не удалась，Два пароля несовместимы.")
         return password2
 
     
@@ -41,7 +41,7 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField(label=("密码Hash值"), help_text=("<a href=\"../password/\">点击修改密码</a>."))
+    password = ReadOnlyPasswordHashField(label=("Хэш-значение пароля"), help_text=("<a href=\"../password/\">Нажмите, чтобы изменить пароль</a>."))
     class Meta:
         model = models.UserProfile
         fields = ('username', 'is_active', 'is_admin')
@@ -65,14 +65,14 @@ class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
-    password = ReadOnlyPasswordHashField(label=("密码Hash值"), help_text=("<a href=\"../password/\">点击修改密码</a>."))
+    password = ReadOnlyPasswordHashField(label=("Хэш-значение пароля"), help_text=("<a href=\"../password/\">Нажмите, чтобы изменить пароль</a>."))
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('username', 'rid')
     list_filter = ('is_admin', 'is_active')
     fieldsets = (
-        ('基本信息', {'fields': ('username', 'password', 'is_active', 'is_admin', 'rid', 'uuid', 'deviceInfo',)}),
+        ('Основная информация', {'fields': ('username', 'password', 'is_active', 'is_admin', 'rid', 'uuid', 'deviceInfo',)}),
       
     )
     readonly_fields = ( 'rid', 'uuid')
@@ -95,5 +95,5 @@ admin.site.register(models.RustDeskPeer, models.RustDeskPeerAdmin)
 admin.site.register(models.RustDesDevice, models.RustDesDeviceAdmin)
 admin.site.register(models.ShareLink, models.ShareLinkAdmin)
 admin.site.unregister(Group)
-admin.site.site_header = 'RustDesk自建Web'
+admin.site.site_header = 'TeamDeskWeb'
 admin.site.site_title = '未定义'
