@@ -29,18 +29,18 @@ class MyUserManager(BaseUserManager):
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField('用户名', 
+    username = models.CharField('Имя пользователя', 
                                 unique=True,
                                 max_length=50)
     
-    rid = models.CharField(verbose_name='RustDesk ID', max_length=16)
+    rid = models.CharField(verbose_name='TeamDesk ID', max_length=16)
     uuid = models.CharField(verbose_name='uuid', max_length=60)
     autoLogin = models.BooleanField(verbose_name='autoLogin', default=True)
     rtype = models.CharField(verbose_name='rtype', max_length=20)
-    deviceInfo = models.TextField(verbose_name='登录信息:', blank=True)
+    deviceInfo = models.TextField(verbose_name='Данные для входа:', blank=True)
     
-    is_active = models.BooleanField(verbose_name='是否激活', default=True)
-    is_admin = models.BooleanField(verbose_name='是否管理员', default=False)
+    is_active = models.BooleanField(verbose_name='Активировать сейчас', default=True)
+    is_admin = models.BooleanField(verbose_name='Это администратор?', default=False)
 
     objects = MyUserManager()
  
@@ -79,8 +79,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
     
-        verbose_name = "用户"
-        verbose_name_plural = "用户列表"
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Список пользователей"
         permissions = (
             ("view_task", "Can see available tasks"),
             ("change_task_status", "Can change the status of tasks"),
